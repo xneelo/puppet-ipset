@@ -13,7 +13,7 @@
 #   Boolean to decide if we want to have the service in autostart or not
 #
 # @param firewall_service
-#   An optional service name. if provided, the ipsets will be configured before this. So your firewall will depend on the chains. The name should end with `.service`
+#   An optional service name. if provided, the ipsets will be configured before this. So your firewall will depend on the chains. The name should end with `.service`. This is only supported on systemd-based Operating Systems
 #
 class ipset (
   Array[String[1]] $packages,
@@ -22,7 +22,7 @@ class ipset (
   Boolean $enable,
   Enum['present', 'absent', 'latest'] $package_ensure,
   Stdlib::Absolutepath $config_path,
-  Optional[String[1]] $firewall_service = undef,
+  Optional[Pattern[/\.service$/]] $firewall_service = undef,
 ){
   package{$ipset::packages:
     ensure => $package_ensure,

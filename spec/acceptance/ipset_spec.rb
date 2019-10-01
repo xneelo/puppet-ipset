@@ -28,7 +28,7 @@ describe 'ipset class' do
     end
 
     describe command('ipset list basic-set') do
-      its(:stdout) { is_expected.to match %r{.*basic-set.*Number of entries: 3.*10\.0\.0\.2.*}m }
+      its(:stdout) { is_expected.to match %r{.*basic-set.*Type: hash:net.*10\.0\.0\.2.*}m }
     end
   end
 

@@ -57,9 +57,9 @@ Boolean to decide if we want to have the service in autostart or not
 
 ##### `firewall_service`
 
-Data type: `Optional[String[1]]`
+Data type: `Optional[Pattern[/\.service$/]]`
 
-An optional service name. if provided, the ipsets will be configured before this. So your firewall will depend on the chains. The name should end with `.service`
+An optional service name. if provided, the ipsets will be configured before this. So your firewall will depend on the chains. The name should end with `.service`. This is only supported on systemd-based Operating Systems
 
 Default value: `undef`
 
