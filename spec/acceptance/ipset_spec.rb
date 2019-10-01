@@ -33,7 +33,7 @@ describe 'ipset class' do
   end
 
   context 'can delete ipsets' do
-    it 'it works even here idempotently with no errors' do
+    it 'works even here idempotently with no errors' do
       pp = <<-EOS
       include ipset
       ipset::set{'basic-set':
@@ -47,8 +47,8 @@ describe 'ipset class' do
       apply_manifest(pp, catch_changes: true)
     end
     describe command('ipset list') do
-      #its(:stdout) { is_expected.to match %r{.*The set with the given name does not exist.*} }
-      its(:stdout) { is_expected.to match "" }
+      # its(:stdout) { is_expected.to match %r{.*The set with the given name does not exist.*} }
+      its(:stdout) { is_expected.to match '' }
     end
   end
 end
