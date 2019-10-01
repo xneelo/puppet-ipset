@@ -101,7 +101,9 @@ describe 'ipset::set' do
               major: 7
             }
           },
-          systemd: true
+          systemd: true,
+          operatingsystem: 'RedHat',
+          osfamily: 'RedHat'
         }
       end
 
