@@ -50,25 +50,43 @@ class ipset (
   }
 
   # configure custom unit file
-  if $facts['systemd'] == true {
-    # It's quite common that people use systemd-networkd to cofigure their network
-    # that will provide us with systemd-networkd-wait-online.service. If it's enabled,
-    # the ipset service should wait for it to become online.
-    $service_dependency = fact('systemd_internal_services."systemd-networkd-wait-online.service"') ? {
-      undef => undef,
-      default => 'systemd-networkd-wait-online.service'
+  case $facts['service_provider'] {
+    'systemd': {
+      # It's quite common that people use systemd-networkd to cofigure their network
+      # that will provide us with systemd-networkd-wait-online.service. If it's enabled,
+      # the ipset service should wait for it to become online.
+      $service_dependency = fact('systemd_internal_services."systemd-networkd-wait-online.service"') ? {
+        undef => undef,
+        default => 'systemd-networkd-wait-online.service'
+      }
+      systemd::unit_file{"${service}.service":
+        enable    => $enable,
+        active    => $service_ensure,
+        content   => epp("${module_name}/ipset.service.epp",{
+          'firewall_service'   => $firewall_service,
+          'config_path'        => $config_path,
+          'service_dependency' => $service_dependency,
+          }),
+        subscribe => [File['/usr/local/bin/ipset_init'], File['/usr/local/bin/ipset_sync']],
+      }
     }
-    systemd::unit_file{"${service}.service":
-      enable    => $enable,
-      active    => $service_ensure,
-      content   => epp("${module_name}/ipset.service.epp",{
-        'firewall_service'   => $firewall_service,
-        'config_path'        => $config_path,
-        'service_dependency' => $service_dependency,
-        }),
-      subscribe => [File['/usr/local/bin/ipset_init'], File['/usr/local/bin/ipset_sync']],
+    'redhat': {
+      file{'/etc/init.d/ipset':
+        ensure  => 'file',
+        mode    => '0755',
+        content => epp("${module_name}/init.redhat.epp", {
+          'config_path' => $config_path
+          }
+        ),
+        require => Package[$ipset::packages],
+      }
+      -> service{'ipset':
+        ensure => 'running',
+        enable => true,
+      }
     }
-  } else {
-    fail('The ipset module only supports systemd based distributions')
+    default: {
+      fail('The ipset module only supports systemd and RedHat 6 based distributions')
+    }
   }
 }
