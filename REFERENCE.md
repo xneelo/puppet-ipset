@@ -15,10 +15,10 @@
 **Data types**
 
 * [`IPSet::Options`](#ipsetoptions): 
-* [`IPSet::Set`](#ipsetset): 
 * [`IPSet::Set::Array`](#ipsetsetarray): 
 * [`IPSet::Set::File_URL`](#ipsetsetfile_url): 
 * [`IPSet::Set::Puppet_URL`](#ipsetsetpuppet_url): 
+* [`IPSet::Settype`](#ipsetsettype): 
 * [`IPSet::Type`](#ipsettype): 
 
 ## Classes
@@ -45,15 +45,23 @@ The name of the service that we're going to manage
 
 ##### `service_ensure`
 
-Data type: `Stdlib::Ensure::Service`
+Data type: `Boolean`
 
-Desired state of the service
+Desired state of the service. If true, the service will be running. If false, the service will be stopped
 
 ##### `enable`
 
 Data type: `Boolean`
 
 Boolean to decide if we want to have the service in autostart or not
+
+##### `firewall_service`
+
+Data type: `Optional[Pattern[/\.service$/]]`
+
+An optional service name. if provided, the ipsets will be configured before this. So your firewall will depend on the chains. The name should end with `.service`. This is only supported on systemd-based Operating Systems
+
+Default value: `undef`
 
 ##### `package_ensure`
 
@@ -114,7 +122,7 @@ The following parameters are available in the `ipset::set` defined type.
 
 ##### `set`
 
-Data type: `IPSet::Set`
+Data type: `IPSet::Settype`
 
 IP set content or source.
 
@@ -231,12 +239,6 @@ Alias of `Struct[{
     Optional[timeout]  => Integer[1],
 }]`
 
-### IPSet::Set
-
-The IPSet::Set data type.
-
-Alias of `Variant[IPSet::Set::Array, IPSet::Set::Puppet_URL, IPSet::Set::File_URL, String]`
-
 ### IPSet::Set::Array
 
 The IPSet::Set::Array data type.
@@ -254,6 +256,12 @@ Alias of `Pattern[/^file:\/\/\//]`
 The IPSet::Set::Puppet_URL data type.
 
 Alias of `Pattern[/^puppet:\/\//]`
+
+### IPSet::Settype
+
+The IPSet::Settype data type.
+
+Alias of `Variant[IPSet::Set::Array, IPSet::Set::Puppet_URL, IPSet::Set::File_URL, String]`
 
 ### IPSet::Type
 

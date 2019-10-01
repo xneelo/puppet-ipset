@@ -33,6 +33,8 @@ group :test do
   gem 'fakefs', '0.13.3',                                           :require => false if RUBY_VERSION < '2.3.0'
   gem 'fakefs',                                                     :require => false if RUBY_VERSION >= '2.3.0'
   gem 'zabbixapi',                                                  :require => false
+  gem 'puppet-lint-legacy_fact-check',                              :require => false
+  gem 'irb',                                                        :require => false
 end
 
 group :development do
@@ -82,5 +84,5 @@ end
 
 ENV['PUPPET_VERSION'].nil? ? puppetversion = '~> 6.0' : puppetversion = ENV['PUPPET_VERSION'].to_s
 gem 'puppet', puppetversion, :require => false, :groups => [:test]
-gem 'irb'
+
 # vim: syntax=ruby

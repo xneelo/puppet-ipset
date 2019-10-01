@@ -11,8 +11,8 @@ end
 
 def check_file_set_header(name, attributes)
   it do
-    is_expected.to contain_file("/etc/sysconfig/ipset.d/#{name}.hdr")
-      .only_with({
+    is_expected.to contain_file("/etc/sysconfig/ipset.d/#{name}.hdr").
+      only_with({
         ensure: 'file',
         owner: 'root',
         group: 'root',
@@ -24,19 +24,19 @@ end
 
 def check_file_set_content(name, attributes)
   it do
-    is_expected.to contain_file("/etc/sysconfig/ipset.d/#{name}.set")
-      .with({ ensure: 'file' }.merge(attributes))
+    is_expected.to contain_file("/etc/sysconfig/ipset.d/#{name}.set").
+      with({ ensure: 'file' }.merge(attributes))
   end
 end
 
 def check_exec_sync(name, attributes)
   it do
-    is_expected.to contain_exec("sync_ipset_#{name}")
-      .with({
+    is_expected.to contain_exec("sync_ipset_#{name}").
+      with({
         path: ['/sbin', '/usr/sbin', '/bin', '/usr/bin', '/usr/local/bin', '/usr/local/sbin'],
         require: 'Package[ipset]'
-      }.merge(attributes))
-      .that_subscribes_to("File[/etc/sysconfig/ipset.d/#{name}.set]")
+      }.merge(attributes)).
+      that_subscribes_to("File[/etc/sysconfig/ipset.d/#{name}.set]")
   end
 end
 
@@ -79,10 +79,12 @@ simple_test_cases = [
   [
     'string',
     ["10.0.0.1,80\n192.168.0.1,443"],
-    { content: "10.0.0.1,80\n192.168.0.1,443" }  
+    { content: "10.0.0.1,80\n192.168.0.1,443" }
   ]
 ]
 
+# rubocop:disable RSpec/MultipleDescribes
+# rubocop:disable RSpec/EmptyExampleGroup
 describe 'ipset::set' do
   simple_test_cases.each do |test_name, set, set_file_attributes|
     context "set type #{test_name}" do
@@ -99,20 +101,20 @@ describe 'ipset::set' do
               major: 7
             }
           },
-          systemd: true
+          systemd: true,
+          operatingsystem: 'RedHat',
+          osfamily: 'RedHat'
         }
       end
 
       check_file_set_header(
         'simple',
-        # rubocop:disable Metrics/LineLength
         content: "create simple hash:ip family inet hashsize 1024 maxelem 65536\n",
         # rubocop:enable Metrics/LineLength
       )
       check_file_set_content('simple', set_file_attributes)
       check_exec_sync(
         'simple',
-        # rubocop:disable Metrics/LineLength
         command: "ipset_sync -c '/etc/sysconfig/ipset.d'    -i simple",
         unless: "ipset_sync -c '/etc/sysconfig/ipset.d' -d -i simple",
         # rubocop:enable Metrics/LineLength
@@ -146,24 +148,25 @@ describe 'ipset::set' do
         systemd: true
       }
     end
+
     check_file_set_header(
       'custom',
-      # rubocop:disable Metrics/LineLength
       content: "create custom hash:net family inet hashsize 2048 maxelem 65536\n",
       # rubocop:enable Metrics/LineLength
     )
     check_file_set_content('custom', content: "10.0.0.0/8\n192.168.0.0/16")
     check_exec_sync(
       'custom',
-      # rubocop:disable Metrics/LineLength
       command: "ipset_sync -c '/etc/sysconfig/ipset.d'    -i custom -n",
       unless: "ipset_sync -c '/etc/sysconfig/ipset.d' -d -i custom -n",
       # rubocop:enable Metrics/LineLength
     )
   end
 end
+# rubocop:enable RSpec/EmptyExampleGroup
 
 describe 'ipset::set' do
+  # rubocop:enable RSpec/MultipleDescribes
   context 'absent' do
     let :pre_condition do
       'include ipset'
@@ -190,15 +193,15 @@ describe 'ipset::set' do
     end
 
     it do
-      is_expected.to contain_file('/etc/sysconfig/ipset.d/absent.hdr')
-        .with(ensure: 'absent')
-      is_expected.to contain_file('/etc/sysconfig/ipset.d/absent.set')
-        .with(ensure: 'absent')
-      is_expected.to contain_exec('ipset destroy absent')
-        .with(
+      is_expected.to contain_file('/etc/sysconfig/ipset.d/absent.hdr').
+        with(ensure: 'absent')
+      is_expected.to contain_file('/etc/sysconfig/ipset.d/absent.set').
+        with(ensure: 'absent')
+      is_expected.to contain_exec('ipset destroy absent').
+        with(
           path: ['/sbin', '/usr/sbin', '/bin', '/usr/bin'],
           command: 'ipset destroy absent',
-          onlyif: 'ipset list -name absent &>/dev/null',
+          onlyif: 'ipset list absent',
           require: 'Package[ipset]'
         )
     end
