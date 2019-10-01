@@ -199,7 +199,7 @@ describe 'ipset::set' do
         with(
           path: ['/sbin', '/usr/sbin', '/bin', '/usr/bin'],
           command: 'ipset destroy absent',
-          onlyif: 'ipset list -name absent &>/dev/null',
+          onlyif: 'ipset list absent',
           require: 'Package[ipset]'
         )
     end
