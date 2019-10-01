@@ -38,14 +38,14 @@ class ipset (
     ensure => 'file',
     owner  => 'root',
     group  => 'root',
-    mode   => '754',
+    mode   => '0754',
     source => "puppet:///modules/${module_name}/ipset_sync",
   }
   file{'/usr/local/bin/ipset_init':
     ensure => 'file',
     owner  => 'root',
     group  => 'root',
-    mode   => '754',
+    mode   => '0754',
     source => "puppet:///modules/${module_name}/ipset_init",
   }
 
@@ -59,9 +59,9 @@ class ipset (
       default => 'systemd-networkd-wait-online.service'
     }
     systemd::unit_file{"${service}.service":
-      enable  => $enable,
-      active  => $service_ensure,
-      content => epp("${module_name}/ipset.service.epp",{
+      enable    => $enable,
+      active    => $service_ensure,
+      content   => epp("${module_name}/ipset.service.epp",{
         'firewall_service'   => $firewall_service,
         'cfg'                => $config_path,
         'service_dependency' => $service_dependency,
@@ -69,6 +69,6 @@ class ipset (
       subscribe => [File['/usr/local/bin/ipset_init'], File['/usr/local/bin/ipset_sync']],
     }
   } else {
-    fail("The ipset module only supports systemd based distributions")
+    fail('The ipset module only supports systemd based distributions')
   }
 }

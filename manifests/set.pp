@@ -70,7 +70,7 @@ define ipset::set (
 
     # content
     case $set {
-      IPSet::Set::Array: {
+      'IPSet::Set::Array': {
         # create file with ipset, one record per line
         file { "${config_path}/${title}.set":
           ensure  => file,
@@ -80,7 +80,7 @@ define ipset::set (
           content => inline_template('<%= (@set.map { |i| i.to_s }).join("\n") %>'),
         }
       }
-      IPSet::Set::Puppet_URL: {
+      'IPSet::Set::Puppet_URL': {
         # passed as puppet file
         file { "${config_path}/${title}.set":
           ensure => file,
@@ -90,7 +90,7 @@ define ipset::set (
           source => $set,
         }
       }
-      IPSet::Set::File_URL: {
+      'IPSet::Set::File_URL': {
         # passed as target node file
         file { "${config_path}/${title}.set":
           ensure => file,
