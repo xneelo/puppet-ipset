@@ -31,7 +31,7 @@
 #   }
 #
 define ipset::set (
-  IPSet::Set $set,
+  IPSet::Settype $set,
   Enum['present', 'absent'] $ensure = 'present',
   IPSet::Type $type = 'hash:ip',
   IPSet::Options $options = {},
