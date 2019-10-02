@@ -1,14 +1,24 @@
-# ipset
+# puppet-ipset
 
-#### Table of Contents
+[![Build Status](https://travis-ci.org/voxpupuli/puppet-ipset.svg?branch=master)](https://travis-ci.org/voxpupuli/puppet-ipset)
+[![Puppet Forge](https://img.shields.io/puppetforge/v/puppet/ipset.svg)](https://forge.puppetlabs.com/puppet/ipset)
+[![Puppet Forge - downloads](https://img.shields.io/puppetforge/dt/puppet/ipset.svg)](https://forge.puppetlabs.com/puppet/ipset)
+[![Puppet Forge - endorsement](https://img.shields.io/puppetforge/e/puppet/ipset.svg)](https://forge.puppetlabs.com/puppet/ipset)
+[![Puppet Forge - scores](https://img.shields.io/puppetforge/f/puppet/ipset.svg)](https://forge.puppetlabs.com/puppet/ipset)
 
-1. [Overview](#overview)
-2. [Usage](#usage)
-3. [Reference](#reference)
-4. [Limitations](#limitations)
-5. [Changelog](#changelog)
-6. [Development](#development)
-7. [Thanks](#thanks)
+## Table of Contents
+
+* [Overview](#overview)
+* [Usage](#usage)
+  * [Array](#array)
+  * [String](#string)
+  * [Module file](#module-file)
+  * [Local file](#local-file)
+* [Reference](#reference)
+* [Limitations](#limitations)
+* [Changelog](#changelog)
+* [Development and Contribution](#development-and-contribution)
+* [Thanks](#thanks)
 
 ## Overview
 
@@ -88,11 +98,11 @@ The module uses puppet-strings for documentation. The result is the
 
 ## Changelog
 
-See [CHANGELOG](https://github.com/sl0m0ZA/puppet-ipset/blob/master/CHANGELOG.md)
+See [CHANGELOG](https://github.com/voxpupuli/puppet-ipset/blob/master/CHANGELOG.md)
 
-## Development
+## Development and Contribution
 
-See [development](https://github.com/sl0m0ZA/puppet-ipset/blob/master/doc/development.md)
+See [development](https://github.com/voxpupuli/puppet-ipset/blob/master/.github/CONTRIBUTING.md)
 
 ## Thanks
 
