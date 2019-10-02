@@ -14,12 +14,12 @@
 
 **Data types**
 
-* [`IPSet::Options`](#ipsetoptions): 
-* [`IPSet::Set::Array`](#ipsetsetarray): 
-* [`IPSet::Set::File_URL`](#ipsetsetfile_url): 
-* [`IPSet::Set::Puppet_URL`](#ipsetsetpuppet_url): 
-* [`IPSet::Settype`](#ipsetsettype): 
-* [`IPSet::Type`](#ipsettype): 
+* [`IPSet::Options`](#ipsetoptions): list of options you can configure on an ipset
+* [`IPSet::Set::Array`](#ipsetsetarray): type to allow an array of ip addresses
+* [`IPSet::Set::File_URL`](#ipsetsetfile_url): type to allow a static file on the target system as source for ipsets
+* [`IPSet::Set::Puppet_URL`](#ipsetsetpuppet_url): type to allow a file on the puppetserver as source for ip addresses for ipsets
+* [`IPSet::Settype`](#ipsetsettype): different datatypes that provides prefixes for the actual ipset
+* [`IPSet::Type`](#ipsettype): type to allow all different hash setups for ipsets
 
 ## Classes
 
@@ -113,6 +113,43 @@ ipset::set { 'from-puppet-module':
 ```puppet
 ipset::set { 'from-filesystem':
   set => 'file:///path/to/ip-addresses',
+}
+```
+
+##### setup multiple ipsets based on a hiera hash with multiple arrays and multiple IPv4/IPv6 prefixes. Use the voxpupuli/ferm module to create suitable iptables rules.
+
+```puppet
+$ip_ranges = lookup('ip_net_vlans').flatten.unique
+$ip_ranges_ipv4 = $ip_ranges.filter |$ip_range| { $ip_range =~ Stdlib::IP::Address::V4 }
+$ip_ranges_ipv6 = $ip_ranges.filter |$ip_range| { $ip_range =~ Stdlib::IP::Address::V6 }
+
+ipset::set{'v4':
+  ensure => 'present',
+  set    => $ip_ranges_ipv4,
+  type   => 'hash:net',
+}
+
+ipset::set{'v6':
+  ensure  => 'present',
+  set     => $ip_ranges_ipv6,
+  type    => 'hash:net',
+  options => {
+    'family' => 'inet6',
+  },
+}
+
+ferm::ipset{'INPUT':
+  ip_version => 'ip6',
+  sets       => {
+    'v6' => 'ACCEPT',
+  },
+}
+
+ferm::ipset{'INPUT':
+  ip_version => 'ip',
+  sets       => {
+    'v4' => 'ACCEPT',
+  },
 }
 ```
 
@@ -229,7 +266,10 @@ Default value: `true`
 
 ### IPSet::Options
 
-The IPSet::Options data type.
+list of options you can configure on an ipset
+
+* **See also**
+http://ipset.netfilter.org/ipset.man.html#lbAI
 
 Alias of `Struct[{
     Optional[family]   => Enum['inet', 'inet6'],
@@ -241,31 +281,35 @@ Alias of `Struct[{
 
 ### IPSet::Set::Array
 
-The IPSet::Set::Array data type.
+type to allow an array of ip addresses
 
 Alias of `Array[String]`
 
 ### IPSet::Set::File_URL
 
-The IPSet::Set::File_URL data type.
+type to allow a static file on the target system as source for ipsets
 
 Alias of `Pattern[/^file:\/\/\//]`
 
 ### IPSet::Set::Puppet_URL
 
-The IPSet::Set::Puppet_URL data type.
+type to allow a file on the puppetserver as source for ip addresses for ipsets
 
 Alias of `Pattern[/^puppet:\/\//]`
 
 ### IPSet::Settype
 
-The IPSet::Settype data type.
+different datatypes that provides prefixes for the actual ipset
 
 Alias of `Variant[IPSet::Set::Array, IPSet::Set::Puppet_URL, IPSet::Set::File_URL, String]`
 
 ### IPSet::Type
 
-The IPSet::Type data type.
+type to allow all different hash setups for ipsets
+
+* **See also**
+http://ipset.netfilter.org/ipset.man.html#lbAW
+documentation for all different hash options
 
 Alias of `Enum['hash:ip', 'hash:ip,port', 'hash:ip,port,ip', 'hash:ip,port,net', 'hash:ip,mark', 'hash:net', 'hash:net,net', 'hash:net,iface', 'hash:net,port', 'hash:net,port,net', 'hash:mac']`
 
