@@ -1,5 +1,5 @@
 <%- | Optional[String[1]] $firewall_service,
-  String[1] $cfg,
+  Stdlib::Absolutepath $config_path,
   Optional[String[1]] $service_dependency,
 | -%>
 # THIS FILE IS MANAGED BY PUPPET
@@ -19,7 +19,7 @@ Wants=network-online.target
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-ExecStart=/usr/local/bin/ipset_init -c "<%= $cfg %>"
+ExecStart=/usr/local/bin/ipset_init -c "<%= $config_path %>"
 
 [Install]
 WantedBy=basic.target
