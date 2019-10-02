@@ -102,6 +102,7 @@ describe 'ipset::set' do
             }
           },
           systemd: true,
+          service_provider: 'systemd',
           operatingsystem: 'RedHat',
           osfamily: 'RedHat'
         }
@@ -145,7 +146,8 @@ describe 'ipset::set' do
             major: 7
           }
         },
-        systemd: true
+        systemd: true,
+        service_provider: 'systemd'
       }
     end
 
@@ -188,7 +190,8 @@ describe 'ipset::set' do
             major: 7
           }
         },
-        systemd: true
+        systemd: true,
+        service_provider: 'systemd'
       }
     end
 
