@@ -75,6 +75,10 @@ define ipset::set (
   Boolean $keep_in_sync = true,
 ) {
 
+  assert_type(String[1, 26], $title) |$expected, $actual| {
+    fail("the title of an `ipset::set` needs to be 26 chars or less, but we got ${actual}")
+  }
+
   include ipset
 
   $config_path = $ipset::config_path
