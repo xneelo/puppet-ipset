@@ -210,3 +210,29 @@ describe 'ipset::set' do
     end
   end
 end
+
+describe 'ipset::set' do
+  let(:title) { '123456789012345678901234567' }
+
+  let :params do
+    {
+      ensure: 'present',
+      set: ['10.0.0.0/8', '192.168.0.0/16']
+    }
+  end
+
+  let :facts do
+    {
+      os: {
+        family: 'RedHat',
+        release: {
+          major: 7
+        }
+      },
+      systemd: true,
+      service_provider: 'systemd'
+    }
+  end
+
+  it { is_expected.not_to compile }
+end
