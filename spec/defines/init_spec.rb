@@ -44,7 +44,7 @@ simple_test_cases = [
   [
     'array',
     ['10.0.0.1', '192.168.0.1'],
-    { content: "10.0.0.1\n192.168.0.1" }
+    { content: "10.0.0.1\n192.168.0.1\n" }
   ],
   [
     'string',
@@ -64,22 +64,22 @@ simple_test_cases = [
   [
     'array',
     ['10.0.0.1 #Comment 1', '192.168.0.1 #Comment 2'],
-    { content: "10.0.0.1 #Comment 1\n192.168.0.1 #Comment 2" }
+    { content: "10.0.0.1 #Comment 1\n192.168.0.1 #Comment 2\n" }
   ],
   [
     'array',
     ['10.0.0.1,80', '192.168.0.1,443'],
-    { content: "10.0.0.1,80\n192.168.0.1,443" }
+    { content: "10.0.0.1,80\n192.168.0.1,443\n" }
   ],
   [
     'string',
     ["10.0.0.1 #Comment 1\n192.168.0.1 #Comment 2"],
-    { content: "10.0.0.1 #Comment 1\n192.168.0.1 #Comment 2" }
+    { content: "10.0.0.1 #Comment 1\n192.168.0.1 #Comment 2\n" }
   ],
   [
     'string',
     ["10.0.0.1,80\n192.168.0.1,443"],
-    { content: "10.0.0.1,80\n192.168.0.1,443" }
+    { content: "10.0.0.1,80\n192.168.0.1,443\n" }
   ]
 ]
 
@@ -156,7 +156,7 @@ describe 'ipset::set' do
       content: "create custom hash:net family inet hashsize 2048 maxelem 65536\n",
       # rubocop:enable Metrics/LineLength
     )
-    check_file_set_content('custom', content: "10.0.0.0/8\n192.168.0.0/16")
+    check_file_set_content('custom', content: "10.0.0.0/8\n192.168.0.0/16\n")
     check_exec_sync(
       'custom',
       command: "ipset_sync -c '/etc/sysconfig/ipset.d'    -i custom -n",
