@@ -109,13 +109,14 @@ define ipset::set (
     # content
     case $set {
       IPSet::Set::Array: { # lint:ignore:unquoted_string_in_case
+        $new_set = join($set, "\n")
         # create file with ipset, one record per line
         file { "${config_path}/${title}.set":
           ensure  => file,
           owner   => 'root',
           group   => 'root',
           mode    => '0640',
-          content => inline_template('<%= (@set.map { |i| i.to_s }).join("\n") %>'),
+          content => "${new_set}\n",
         }
       }
       IPSet::Set::Puppet_URL: { # lint:ignore:unquoted_string_in_case
