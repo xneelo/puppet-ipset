@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v1.1.0](https://github.com/voxpupuli/puppet-ipset/tree/v1.1.0) (2019-10-21)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-ipset/compare/v1.0.0...v1.1.0)
+
+**Implemented enhancements:**
+
+- ip lists: ensure file end with a  \n [\#12](https://github.com/voxpupuli/puppet-ipset/pull/12) ([bastelfreak](https://github.com/bastelfreak))
+- Implement check for max title length [\#11](https://github.com/voxpupuli/puppet-ipset/pull/11) ([bastelfreak](https://github.com/bastelfreak))
+
 ## [v1.0.0](https://github.com/voxpupuli/puppet-ipset/tree/v1.0.0) (2019-10-08)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-ipset/compare/c6e9ffd6ad7a63d0c78e0915bd4541fde3938235...v1.0.0)
