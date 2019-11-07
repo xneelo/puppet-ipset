@@ -77,12 +77,14 @@ Or using a plain text file stored on the filesystem:
 ```puppet
 file { '/tmp/bar_set_content':
   ensure  => present,
-  content => "1.2.3.0/24\n5.6.7.8/32"
+  content => "1.2.3.0/24\n5.6.7.8/32",
 }
--> ipset { 'bar':
-  ensure => present,
-  set    => 'file:///tmp/bar_set_content',
-  type   => 'hash:net',
+
+ipset { 'bar':
+  ensure    => present,
+  set       => 'file:///tmp/bar_set_content',
+  type      => 'hash:net',
+  subscribe => File['/tmp/bar_set_content'],
 }
 ```
 
