@@ -9,7 +9,7 @@ Documentation=https://github.com/voxpupuli/puppet-ipset
 <% if $firewall_service { -%>
 Before=<%= $firewall_service %>
 <% } -%>
-<% if $firewall_service { -%>
+<% if $service_dependency { -%>
 Require=<%= $service_dependency %>
 <% } -%>
 After=network-online.target
