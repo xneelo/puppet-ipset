@@ -52,20 +52,12 @@ class ipset (
   # configure custom unit file
   case $facts['service_provider'] {
     'systemd': {
-      # It's quite common that people use systemd-networkd to cofigure their network
-      # that will provide us with systemd-networkd-wait-online.service. If it's enabled,
-      # the ipset service should wait for it to become online.
-      $service_dependency = fact('systemd_internal_services."systemd-networkd-wait-online.service"') ? {
-        undef => undef,
-        default => 'systemd-networkd-wait-online.service'
-      }
       systemd::unit_file{"${service}.service":
         enable    => $enable,
         active    => $service_ensure,
         content   => epp("${module_name}/ipset.service.epp",{
-          'firewall_service'   => $firewall_service,
-          'config_path'        => $config_path,
-          'service_dependency' => $service_dependency,
+          'firewall_service' => $firewall_service,
+          'config_path'      => $config_path,
           }),
         subscribe => [File['/usr/local/bin/ipset_init'], File['/usr/local/bin/ipset_sync']],
       }

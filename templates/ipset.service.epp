@@ -1,6 +1,5 @@
 <%- | Optional[String[1]] $firewall_service,
   Stdlib::Absolutepath $config_path,
-  Optional[String[1]] $service_dependency,
 | -%>
 # THIS FILE IS MANAGED BY PUPPET
 [Unit]
@@ -9,12 +8,8 @@ Documentation=https://github.com/voxpupuli/puppet-ipset
 <% if $firewall_service { -%>
 Before=<%= $firewall_service %>
 <% } -%>
-<% if $service_dependency { -%>
-Require=<%= $service_dependency %>
-<% } -%>
-After=network-online.target
-Wants=network-online.target
-
+Before=network-pre.target iptables.service ip6tables.service
+Wants=network-pre.target
 
 [Service]
 Type=oneshot
