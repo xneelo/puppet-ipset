@@ -4,6 +4,25 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v1.2.0](https://github.com/voxpupuli/puppet-ipset/tree/v1.2.0) (2019-11-18)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-ipset/compare/v1.1.0...v1.2.0)
+
+**Implemented enhancements:**
+
+- Add VirtuozzoLinux support [\#15](https://github.com/voxpupuli/puppet-ipset/pull/15) ([bastelfreak](https://github.com/bastelfreak))
+
+**Fixed bugs:**
+
+- fix systemd unit dependencies [\#17](https://github.com/voxpupuli/puppet-ipset/pull/17) ([bastelfreak](https://github.com/bastelfreak))
+- dont depend on working network connectivity [\#16](https://github.com/voxpupuli/puppet-ipset/pull/16) ([bastelfreak](https://github.com/bastelfreak))
+- fix typo in ipset.service [\#14](https://github.com/voxpupuli/puppet-ipset/pull/14) ([bastelfreak](https://github.com/bastelfreak))
+
+**Merged pull requests:**
+
+- systemd unit: switch target from basic to multi-user [\#18](https://github.com/voxpupuli/puppet-ipset/pull/18) ([bastelfreak](https://github.com/bastelfreak))
+- Fix style in README example [\#10](https://github.com/voxpupuli/puppet-ipset/pull/10) ([ghoneycutt](https://github.com/ghoneycutt))
+
 ## [v1.1.0](https://github.com/voxpupuli/puppet-ipset/tree/v1.1.0) (2019-10-21)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-ipset/compare/v1.0.0...v1.1.0)
