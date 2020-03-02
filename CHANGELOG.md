@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v1.2.1](https://github.com/voxpupuli/puppet-ipset/tree/v1.2.1) (2020-03-02)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-ipset/compare/v1.2.0...v1.2.1)
+
+**Fixed bugs:**
+
+- CentOS 6: use correct sys v syntax [\#24](https://github.com/voxpupuli/puppet-ipset/pull/24) ([bastelfreak](https://github.com/bastelfreak))
+
 ## [v1.2.0](https://github.com/voxpupuli/puppet-ipset/tree/v1.2.0) (2019-11-18)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-ipset/compare/v1.1.0...v1.2.0)
