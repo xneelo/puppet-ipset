@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v1.2.3](https://github.com/voxpupuli/puppet-ipset/tree/v1.2.3) (2020-03-04)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-ipset/compare/v1.2.1...v1.2.3)
+
+**Fixed bugs:**
+
+- Ignore hashsize to avoid conflicts on large sets [\#27](https://github.com/voxpupuli/puppet-ipset/pull/27) ([bastelfreak](https://github.com/bastelfreak))
+
+**Closed issues:**
+
+- hashsize is dynamic and produces errors on large sets [\#26](https://github.com/voxpupuli/puppet-ipset/issues/26)
+
 ## [v1.2.1](https://github.com/voxpupuli/puppet-ipset/tree/v1.2.1) (2020-03-02)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-ipset/compare/v1.2.0...v1.2.1)
