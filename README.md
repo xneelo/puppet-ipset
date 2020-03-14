@@ -88,6 +88,22 @@ ipset { 'bar':
 }
 ```
 
+### Unmanaged ipsets
+
+Declare an IP set, without managing its content:
+
+```puppet
+ipset::unmanaged { 'baz':
+  ensure => present,
+  type   => 'hash:net',
+}
+```
+
+Useful when you have a dynamic process that generates an IP set content,
+but still want to define and use it from Puppet.
+
+Warning: When changing IP set attributes (type, options) contents won't be kept, set will be recreated as empty.
+
 ## Reference
 
 The module uses puppet-strings for documentation. The result is the
