@@ -38,7 +38,7 @@ IP sets can be filled from an array data structure.
 Typically passed from Hiera.
 
 ```puppet
-ipset { 'foo':
+ipset::set { 'foo':
   ensure => present,
   set    => ['1.2.3.4', '5.6.7.8'],
   type   => 'hash:ip',
@@ -52,7 +52,7 @@ You can also pass a pre-formatted string directly, using one entry per line
 This pattern is practical when generating the IP set entries using a template.
 
 ```puppet
-ipset { 'foo':
+ipset::set { 'foo':
   ensure => present,
   set    => "1.2.3.4\n5.6.7.8",
   type   => 'hash:ip',
@@ -64,7 +64,7 @@ ipset { 'foo':
 IP sets content can also be stored in a module file:
 
 ```puppet
-ipset { 'foo':
+ipset::set { 'foo':
   ensure => present,
   set    => "puppet:///modules/${module_name}/foo.ipset",
 }
@@ -80,7 +80,7 @@ file { '/tmp/bar_set_content':
   content => "1.2.3.0/24\n5.6.7.8/32",
 }
 
-ipset { 'bar':
+ipset::set { 'bar':
   ensure    => present,
   set       => 'file:///tmp/bar_set_content',
   type      => 'hash:net',
