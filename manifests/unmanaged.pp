@@ -17,7 +17,7 @@
 # @example
 #   ipset::unmanaged { 'unmanaged-ipset-name': }
 #
-define ipset::unmanaged(
+define ipset::unmanaged (
   Enum['present', 'absent'] $ensure = 'present',
   IPSet::Type $type = 'hash:ip',
   IPSet::Options $options = {},

@@ -23,25 +23,25 @@ class ipset (
   Enum['present', 'absent', 'latest'] $package_ensure,
   Stdlib::Absolutepath $config_path,
   Optional[Pattern[/\.service$/]] $firewall_service = undef,
-){
-  package{$ipset::packages:
+) {
+  package { $ipset::packages:
     ensure => $package_ensure,
   }
 
   # create the config directory
-  file{$config_path:
+  file { $config_path:
     ensure => 'directory',
   }
 
   # setup the helper scripts
-  file{'/usr/local/bin/ipset_sync':
+  file { '/usr/local/bin/ipset_sync':
     ensure => 'file',
     owner  => 'root',
     group  => 'root',
     mode   => '0754',
     source => "puppet:///modules/${module_name}/ipset_sync",
   }
-  file{'/usr/local/bin/ipset_init':
+  file { '/usr/local/bin/ipset_init':
     ensure => 'file',
     owner  => 'root',
     group  => 'root',
@@ -52,27 +52,27 @@ class ipset (
   # configure custom unit file
   case $facts['service_provider'] {
     'systemd': {
-      systemd::unit_file{"${service}.service":
+      systemd::unit_file { "${service}.service":
         enable    => $enable,
         active    => $service_ensure,
         content   => epp("${module_name}/ipset.service.epp",{
-          'firewall_service' => $firewall_service,
-          'config_path'      => $config_path,
-          }),
+            'firewall_service' => $firewall_service,
+            'config_path'      => $config_path,
+        }),
         subscribe => [File['/usr/local/bin/ipset_init'], File['/usr/local/bin/ipset_sync']],
       }
     }
     'redhat': {
-      file{'/etc/init.d/ipset':
+      file { '/etc/init.d/ipset':
         ensure  => 'file',
         mode    => '0755',
         content => epp("${module_name}/init.redhat.epp", {
-          'config_path' => $config_path
+            'config_path' => $config_path
           }
         ),
         require => Package[$ipset::packages],
       }
-      -> service{'ipset':
+      -> service { 'ipset':
         ensure => 'running',
         enable => true,
       }
