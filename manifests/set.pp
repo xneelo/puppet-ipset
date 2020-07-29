@@ -74,7 +74,6 @@ define ipset::set (
   # keep definition file and in-kernel runtime state in sync
   Boolean $keep_in_sync = true,
 ) {
-
   assert_type(String[1, 26], $title) |$expected, $actual| {
     fail("the title of an `ipset::set` needs to be 26 chars or less, but we got ${actual}")
   }
@@ -163,7 +162,7 @@ define ipset::set (
 
     # sync if needed by helper script
     exec { "sync_ipset_${title}":
-      path    => [ '/sbin', '/usr/sbin', '/bin', '/usr/bin', '/usr/local/bin', '/usr/local/sbin' ],
+      path    => ['/sbin', '/usr/sbin', '/bin', '/usr/bin', '/usr/local/bin', '/usr/local/sbin'],
       # use helper script to do the sync
       command => "ipset_sync -c '${config_path}'    -i ${title}${ignore_contents_opt}",
       # only when difference with in-kernel set is detected
@@ -184,7 +183,7 @@ define ipset::set (
 
     # clear ipset from kernel
     exec { "ipset destroy ${title}":
-      path    => [ '/sbin', '/usr/sbin', '/bin', '/usr/bin' ],
+      path    => ['/sbin', '/usr/sbin', '/bin', '/usr/bin'],
       command => "ipset destroy ${title}",
       onlyif  => "ipset list ${title}",
       require => Package['ipset'],
