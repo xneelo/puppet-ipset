@@ -13,6 +13,7 @@ Gemfile:
   optional:
     ':test':
       - gem: 'puppet-lint-legacy_fact-check'
+      - gem: 'puppet-lint-param-docs'
       - gem: 'irb'
 spec/spec_helper_acceptance.rb:
   unmanaged: false
