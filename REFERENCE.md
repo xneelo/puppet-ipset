@@ -68,13 +68,13 @@ Default value: ``undef``
 
 Data type: `Enum['present', 'absent', 'latest']`
 
-
+ensure parameter for the ipset package resource
 
 ##### `config_path`
 
 Data type: `Stdlib::Absolutepath`
 
-
+path to the directory for the ipsets
 
 ## Defined types
 
