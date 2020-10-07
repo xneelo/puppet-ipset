@@ -15,6 +15,12 @@
 # @param firewall_service
 #   An optional service name. if provided, the ipsets will be configured before this. So your firewall will depend on the chains. The name should end with `.service`. This is only supported on systemd-based Operating Systems
 #
+# @param package_ensure
+#   ensure parameter for the ipset package resource
+#
+# @param config_path
+#   path to the directory for the ipsets
+#
 class ipset (
   Array[String[1]] $packages,
   String[1] $service,
