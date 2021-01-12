@@ -156,7 +156,11 @@ describe 'ipset::set' do
       content: "create custom hash:net family inet hashsize 2048 maxelem 65536\n",
       # rubocop:enable Metrics/LineLength
     )
-    check_file_set_content('custom', content: "10.0.0.0/8\n192.168.0.0/16\n")
+    check_file_set_content(
+      'custom',
+      content: "10.0.0.0/8\n192.168.0.0/16\n",
+      replace: false
+    )
     check_exec_sync(
       'custom',
       command: "ipset_sync -c '/etc/sysconfig/ipset.d'    -i custom -n",
@@ -235,4 +239,38 @@ describe 'ipset::set' do
   end
 
   it { is_expected.not_to compile }
+end
+
+describe 'ipset::unmanaged' do
+  context 'unmanaged' do
+    let :pre_condition do
+      'include ipset'
+    end
+
+    let(:title) { 'unmanaged' }
+    let :params do
+      {
+        ensure: 'present',
+      }
+    end
+
+    let :facts do
+      {
+        os: {
+          family: 'RedHat',
+          release: {
+            major: 7
+          }
+        },
+        systemd: true,
+        service_provider: 'systemd'
+      }
+    end
+
+    it do
+      is_expected.to contain_ipset__set('unmanaged').with(
+        ignore_contents: true
+      )
+    end
+  end
 end
