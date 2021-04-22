@@ -46,6 +46,42 @@ describe 'ipset' do
           it { is_expected.not_to contain_package('ipset-service') }
         end
       end
+
+      context 'with sets attributes' do
+        let :params do
+          {
+            sets: {
+              'basic-set-v4' => {
+                'set'  => "['10.0.0.1', '10.0.0.2', '10.0.0.42']",
+                'type' => 'hash:net'
+              },
+              'basic-set-v6' => {
+                'set'  => "['fc00::1/128', 'fc00::2/128', 'fc00::2/128']",
+                'type' => 'hash:net',
+                'options' => {
+                  'family' => 'inet6'
+                }
+              }
+            }
+          }
+        end
+
+        it do
+          is_expected.to contain_ipset__set('basic-set-v4'). \
+            with(
+              'set'  => "['10.0.0.1', '10.0.0.2', '10.0.0.42']",
+              'type' => 'hash:net'
+            )
+          is_expected.to contain_ipset__set('basic-set-v6').\
+            with(
+              'set'  => "['fc00::1/128', 'fc00::2/128', 'fc00::2/128']",
+              'type' => 'hash:net',
+              'options' => {
+                'family' => 'inet6'
+              }
+            )
+        end
+      end
     end
   end
 end
