@@ -21,6 +21,9 @@
 # @param config_path
 #   path to the directory for the ipsets
 #
+# @param sets
+#   Hash Hash of 'ipset::set' resources
+#
 class ipset (
   Array[String[1]] $packages,
   String[1] $service,
@@ -29,6 +32,7 @@ class ipset (
   Enum['present', 'absent', 'latest'] $package_ensure,
   Stdlib::Absolutepath $config_path,
   Optional[Pattern[/\.service$/]] $firewall_service = undef,
+  Hash $sets = {},
 ) {
   package { $ipset::packages:
     ensure => $package_ensure,
@@ -85,6 +89,12 @@ class ipset (
     }
     default: {
       fail('The ipset module only supports systemd and RedHat 6 based distributions')
+    }
+  }
+
+  $sets.each |$set, $attributes| {
+    ipset::set { $set:
+      * => $attributes,
     }
   }
 }
