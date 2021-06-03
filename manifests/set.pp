@@ -116,26 +116,29 @@ define ipset::set (
           group   => 'root',
           mode    => '0640',
           content => "${new_set}\n",
+          replace => !$ignore_contents,
         }
       }
       IPSet::Set::Puppet_URL: { # lint:ignore:unquoted_string_in_case
         # passed as puppet file
         file { "${config_path}/${title}.set":
-          ensure => file,
-          owner  => 'root',
-          group  => 'root',
-          mode   => '0640',
-          source => $set,
+          ensure  => file,
+          owner   => 'root',
+          group   => 'root',
+          mode    => '0640',
+          source  => $set,
+          replace => !$ignore_contents,
         }
       }
       IPSet::Set::File_URL: { # lint:ignore:unquoted_string_in_case
         # passed as target node file
         file { "${config_path}/${title}.set":
-          ensure => file,
-          owner  => 'root',
-          group  => 'root',
-          mode   => '0640',
-          source => regsubst($set, '^.{7}', ''),
+          ensure  => file,
+          owner   => 'root',
+          group   => 'root',
+          mode    => '0640',
+          source  => regsubst($set, '^.{7}', ''),
+          replace => !$ignore_contents,
         }
       }
       String: {
@@ -146,6 +149,7 @@ define ipset::set (
           group   => 'root',
           mode    => '0640',
           content => $set,
+          replace => !$ignore_contents,
         }
       }
       default: {
