@@ -4,6 +4,40 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v2.0.0](https://github.com/voxpupuli/puppet-ipset/tree/v2.0.0) (2021-06-03)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-ipset/compare/v1.2.3...v2.0.0)
+
+**Breaking changes:**
+
+- Disable CentOS 8 support [\#48](https://github.com/voxpupuli/puppet-ipset/pull/48) ([bastelfreak](https://github.com/bastelfreak))
+- Drop EoL Debian 8 support [\#47](https://github.com/voxpupuli/puppet-ipset/pull/47) ([bastelfreak](https://github.com/bastelfreak))
+- Drop EoL CentOS 6 support [\#46](https://github.com/voxpupuli/puppet-ipset/pull/46) ([bastelfreak](https://github.com/bastelfreak))
+- Drop Puppet 5 support; Add Puppet 7 support [\#43](https://github.com/voxpupuli/puppet-ipset/pull/43) ([bastelfreak](https://github.com/bastelfreak))
+
+**Implemented enhancements:**
+
+- Make the 'set' parameter optional [\#23](https://github.com/voxpupuli/puppet-ipset/issues/23)
+- add 'sets' hash to configure 'ipset::set' resource via Hiera [\#42](https://github.com/voxpupuli/puppet-ipset/pull/42) ([kBite](https://github.com/kBite))
+- Add unmanaged ipset example to README.md [\#29](https://github.com/voxpupuli/puppet-ipset/pull/29) ([kasimon](https://github.com/kasimon))
+
+**Fixed bugs:**
+
+- Avoid emptying set file for unmanaged sets [\#40](https://github.com/voxpupuli/puppet-ipset/pull/40) ([mikesmitty](https://github.com/mikesmitty))
+
+**Closed issues:**
+
+- Set file for unmanaged ipsets is emptied on each puppet run [\#39](https://github.com/voxpupuli/puppet-ipset/issues/39)
+
+**Merged pull requests:**
+
+- camptocamp/systemd: Allow 3.x [\#45](https://github.com/voxpupuli/puppet-ipset/pull/45) ([bastelfreak](https://github.com/bastelfreak))
+- puppetlabs/stdlib: Allow 7.x [\#44](https://github.com/voxpupuli/puppet-ipset/pull/44) ([bastelfreak](https://github.com/bastelfreak))
+- fix typos in puppet-strings documentation / Add puppet-lint-param-docs linter [\#36](https://github.com/voxpupuli/puppet-ipset/pull/36) ([bastelfreak](https://github.com/bastelfreak))
+- modulesync 3.0.0 & puppet-lint updates [\#34](https://github.com/voxpupuli/puppet-ipset/pull/34) ([bastelfreak](https://github.com/bastelfreak))
+- Fix ipset::set resource usage documentation [\#33](https://github.com/voxpupuli/puppet-ipset/pull/33) ([Hexta](https://github.com/Hexta))
+- Use voxpupuli-acceptance [\#32](https://github.com/voxpupuli/puppet-ipset/pull/32) ([ekohl](https://github.com/ekohl))
+
 ## [v1.2.3](https://github.com/voxpupuli/puppet-ipset/tree/v1.2.3) (2020-03-04)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-ipset/compare/v1.2.1...v1.2.3)
@@ -54,7 +88,7 @@ These should not affect the functionality of the module.
 
 ## [v1.0.0](https://github.com/voxpupuli/puppet-ipset/tree/v1.0.0) (2019-10-08)
 
-[Full Changelog](https://github.com/voxpupuli/puppet-ipset/compare/c6e9ffd6ad7a63d0c78e0915bd4541fde3938235...v1.0.0)
+[Full Changelog](https://github.com/voxpupuli/puppet-ipset/compare/65cdcc16532949eb7c6638473ff2c87026db2db1...v1.0.0)
 
 **Implemented enhancements:**
 
