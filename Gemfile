@@ -4,13 +4,11 @@
 source ENV['GEM_SOURCE'] || "https://rubygems.org"
 
 group :test do
-  gem 'voxpupuli-test', '~> 2.5',       :require => false
-  gem 'coveralls',                      :require => false
-  gem 'simplecov-console',              :require => false
-  gem 'puppet_metadata', '~> 1.0',      :require => false
-  gem 'puppet-lint-legacy_fact-check',  :require => false
-  gem 'puppet-lint-param-docs',         :require => false
-  gem 'irb',                            :require => false
+  gem 'voxpupuli-test', '~> 2.5',   :require => false
+  gem 'coveralls',                  :require => false
+  gem 'simplecov-console',          :require => false
+  gem 'puppet_metadata', '~> 1.0',  :require => false
+  gem 'puppet-lint-param-docs',     :require => false
 end
 
 group :development do
