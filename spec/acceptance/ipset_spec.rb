@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper_acceptance'
 
 describe 'ipset class' do
@@ -8,11 +10,13 @@ describe 'ipset class' do
       apply_manifest(pp, catch_failures: true)
       apply_manifest(pp, catch_changes: true)
     end
+
     describe service('ipset') do
       it { is_expected.to be_running }
       it { is_expected.to be_enabled }
     end
   end
+
   context 'with a basic ipset' do
     it 'works idempotently with no errors' do
       pp = <<-EOS
@@ -46,6 +50,7 @@ describe 'ipset class' do
       apply_manifest(pp, catch_failures: true)
       apply_manifest(pp, catch_changes: true)
     end
+
     describe command('ipset list') do
       # its(:stdout) { is_expected.to match %r{.*The set with the given name does not exist.*} }
       its(:stdout) { is_expected.to match '' }

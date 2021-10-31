@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'ipset' do
@@ -6,7 +8,7 @@ describe 'ipset' do
   end
 
   on_supported_os.each do |os, facts|
-    context "on #{os} " do
+    context "on #{os}" do
       let :facts do
         if facts[:os]['release']['major'].to_i == 6
           facts.merge(systemd: false, service_provider: 'redhat')
@@ -52,11 +54,11 @@ describe 'ipset' do
           {
             sets: {
               'basic-set-v4' => {
-                'set'  => "['10.0.0.1', '10.0.0.2', '10.0.0.42']",
+                'set' => "['10.0.0.1', '10.0.0.2', '10.0.0.42']",
                 'type' => 'hash:net'
               },
               'basic-set-v6' => {
-                'set'  => "['fc00::1/128', 'fc00::2/128', 'fc00::2/128']",
+                'set' => "['fc00::1/128', 'fc00::2/128', 'fc00::2/128']",
                 'type' => 'hash:net',
                 'options' => {
                   'family' => 'inet6'
@@ -67,14 +69,14 @@ describe 'ipset' do
         end
 
         it do
-          is_expected.to contain_ipset__set('basic-set-v4'). \
+          expect(subject).to contain_ipset__set('basic-set-v4'). \
             with(
-              'set'  => "['10.0.0.1', '10.0.0.2', '10.0.0.42']",
+              'set' => "['10.0.0.1', '10.0.0.2', '10.0.0.42']",
               'type' => 'hash:net'
             )
-          is_expected.to contain_ipset__set('basic-set-v6').\
+          expect(subject).to contain_ipset__set('basic-set-v6').\
             with(
-              'set'  => "['fc00::1/128', 'fc00::2/128', 'fc00::2/128']",
+              'set' => "['fc00::1/128', 'fc00::2/128', 'fc00::2/128']",
               'type' => 'hash:net',
               'options' => {
                 'family' => 'inet6'

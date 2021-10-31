@@ -4,14 +4,14 @@ require 'spec_helper'
 
 def check_classes
   it do
-    is_expected.to contain_class('ipset::params')
-    is_expected.to contain_class('ipset::install')
+    expect(subject).to contain_class('ipset::params')
+    expect(subject).to contain_class('ipset::install')
   end
 end
 
 def check_file_set_header(name, attributes)
   it do
-    is_expected.to contain_file("/etc/sysconfig/ipset.d/#{name}.hdr").
+    expect(subject).to contain_file("/etc/sysconfig/ipset.d/#{name}.hdr").
       only_with({
         ensure: 'file',
         owner: 'root',
@@ -24,14 +24,14 @@ end
 
 def check_file_set_content(name, attributes)
   it do
-    is_expected.to contain_file("/etc/sysconfig/ipset.d/#{name}.set").
+    expect(subject).to contain_file("/etc/sysconfig/ipset.d/#{name}.set").
       with({ ensure: 'file' }.merge(attributes))
   end
 end
 
 def check_exec_sync(name, attributes)
   it do
-    is_expected.to contain_exec("sync_ipset_#{name}").
+    expect(subject).to contain_exec("sync_ipset_#{name}").
       with({
         path: ['/sbin', '/usr/sbin', '/bin', '/usr/bin', '/usr/local/bin', '/usr/local/sbin'],
         require: 'Package[ipset]'
@@ -85,6 +85,7 @@ simple_test_cases = [
 
 # rubocop:disable RSpec/MultipleDescribes
 # rubocop:disable RSpec/EmptyExampleGroup
+# rubocop:disable RSpec/RepeatedExampleGroupDescription
 describe 'ipset::set' do
   simple_test_cases.each do |test_name, set, set_file_attributes|
     context "set type #{test_name}" do
@@ -110,15 +111,13 @@ describe 'ipset::set' do
 
       check_file_set_header(
         'simple',
-        content: "create simple hash:ip family inet hashsize 1024 maxelem 65536\n",
-        # rubocop:enable Metrics/LineLength
+        content: "create simple hash:ip family inet hashsize 1024 maxelem 65536\n"
       )
       check_file_set_content('simple', set_file_attributes)
       check_exec_sync(
         'simple',
         command: "ipset_sync -c '/etc/sysconfig/ipset.d'    -i simple",
-        unless: "ipset_sync -c '/etc/sysconfig/ipset.d' -d -i simple",
-        # rubocop:enable Metrics/LineLength
+        unless: "ipset_sync -c '/etc/sysconfig/ipset.d' -d -i simple"
       )
     end
   end
@@ -153,8 +152,7 @@ describe 'ipset::set' do
 
     check_file_set_header(
       'custom',
-      content: "create custom hash:net family inet hashsize 2048 maxelem 65536\n",
-      # rubocop:enable Metrics/LineLength
+      content: "create custom hash:net family inet hashsize 2048 maxelem 65536\n"
     )
     check_file_set_content(
       'custom',
@@ -164,8 +162,7 @@ describe 'ipset::set' do
     check_exec_sync(
       'custom',
       command: "ipset_sync -c '/etc/sysconfig/ipset.d'    -i custom -n",
-      unless: "ipset_sync -c '/etc/sysconfig/ipset.d' -d -i custom -n",
-      # rubocop:enable Metrics/LineLength
+      unless: "ipset_sync -c '/etc/sysconfig/ipset.d' -d -i custom -n"
     )
   end
 end
@@ -200,11 +197,11 @@ describe 'ipset::set' do
     end
 
     it do
-      is_expected.to contain_file('/etc/sysconfig/ipset.d/absent.hdr').
+      expect(subject).to contain_file('/etc/sysconfig/ipset.d/absent.hdr').
         with(ensure: 'absent')
-      is_expected.to contain_file('/etc/sysconfig/ipset.d/absent.set').
+      expect(subject).to contain_file('/etc/sysconfig/ipset.d/absent.set').
         with(ensure: 'absent')
-      is_expected.to contain_exec('ipset destroy absent').
+      expect(subject).to contain_exec('ipset destroy absent').
         with(
           path: ['/sbin', '/usr/sbin', '/bin', '/usr/bin'],
           command: 'ipset destroy absent',
@@ -268,9 +265,10 @@ describe 'ipset::unmanaged' do
     end
 
     it do
-      is_expected.to contain_ipset__set('unmanaged').with(
+      expect(subject).to contain_ipset__set('unmanaged').with(
         ignore_contents: true
       )
     end
   end
 end
+# rubocop:enable RSpec/RepeatedExampleGroupDescription
