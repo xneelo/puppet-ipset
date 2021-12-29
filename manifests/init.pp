@@ -45,18 +45,18 @@ class ipset (
 
   # setup the helper scripts
   file { '/usr/local/bin/ipset_sync':
-    ensure => 'file',
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0754',
-    source => "puppet:///modules/${module_name}/ipset_sync",
+    ensure  => 'file',
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0754',
+    content => file("${module_name}/ipset_sync"),
   }
   file { '/usr/local/bin/ipset_init':
-    ensure => 'file',
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0754',
-    source => "puppet:///modules/${module_name}/ipset_init",
+    ensure  => 'file',
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0754',
+    content => file("${module_name}/ipset_init"),
   }
 
   # configure custom unit file
