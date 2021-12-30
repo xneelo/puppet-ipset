@@ -1,10 +1,13 @@
 # puppet-ipset
 
-[![Build Status](https://travis-ci.org/voxpupuli/puppet-ipset.svg?branch=master)](https://travis-ci.org/voxpupuli/puppet-ipset)
+[![Build Status](https://github.com/voxpupuli/puppet-ipset/workflows/CI/badge.svg)](https://github.com/voxpupuli/puppet-ipset/actions?query=workflow%3ACI)
+[![Release](https://github.com/voxpupuli/puppet-ipset/actions/workflows/release.yml/badge.svg)](https://github.com/voxpupuli/puppet-ipset/actions/workflows/release.yml)
 [![Puppet Forge](https://img.shields.io/puppetforge/v/puppet/ipset.svg)](https://forge.puppetlabs.com/puppet/ipset)
 [![Puppet Forge - downloads](https://img.shields.io/puppetforge/dt/puppet/ipset.svg)](https://forge.puppetlabs.com/puppet/ipset)
 [![Puppet Forge - endorsement](https://img.shields.io/puppetforge/e/puppet/ipset.svg)](https://forge.puppetlabs.com/puppet/ipset)
 [![Puppet Forge - scores](https://img.shields.io/puppetforge/f/puppet/ipset.svg)](https://forge.puppetlabs.com/puppet/ipset)
+[![puppetmodule.info docs](http://www.puppetmodule.info/images/badge.png)](http://www.puppetmodule.info/m/puppet-ipset)
+[![AGPL v3 License](https://img.shields.io/github/license/voxpupuli/puppet-ipset.svg)](LICENSE)
 
 ## Table of Contents
 
