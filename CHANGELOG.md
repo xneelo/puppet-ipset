@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v2.1.0](https://github.com/voxpupuli/puppet-ipset/tree/v2.1.0) (2021-12-30)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-ipset/compare/v2.0.0...v2.1.0)
+
+**Implemented enhancements:**
+
+- use 'content' instead of 'source' to increase performance [\#60](https://github.com/voxpupuli/puppet-ipset/pull/60) ([kBite](https://github.com/kBite))
+
+**Merged pull requests:**
+
+- Allow stdlib 8.0.0 [\#52](https://github.com/voxpupuli/puppet-ipset/pull/52) ([smortex](https://github.com/smortex))
+- switch from camptocamp/systemd to voxpupuli/systemd [\#51](https://github.com/voxpupuli/puppet-ipset/pull/51) ([bastelfreak](https://github.com/bastelfreak))
+
 ## [v2.0.0](https://github.com/voxpupuli/puppet-ipset/tree/v2.0.0) (2021-06-03)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-ipset/compare/v1.2.3...v2.0.0)
