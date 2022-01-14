@@ -72,23 +72,8 @@ class ipset (
         subscribe => [File['/usr/local/bin/ipset_init'], File['/usr/local/bin/ipset_sync']],
       }
     }
-    'redhat': {
-      file { '/etc/init.d/ipset':
-        ensure  => 'file',
-        mode    => '0755',
-        content => epp("${module_name}/init.redhat.epp", {
-            'config_path' => $config_path
-          }
-        ),
-        require => Package[$ipset::packages],
-      }
-      -> service { 'ipset':
-        ensure => 'running',
-        enable => true,
-      }
-    }
     default: {
-      fail('The ipset module only supports systemd and RedHat 6 based distributions')
+      fail('The ipset module only supports systemd based distributions')
     }
   }
 
